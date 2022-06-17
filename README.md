@@ -1,4 +1,6 @@
 # ProyectXarm6CameraP15
+
+
 This is a project made for the final activity of the 6th semester of mechatronic engineering in Tec de Monterrey
 import os
 import socket
@@ -27,22 +29,28 @@ arm.set_mode(0)
 arm.set_state(state=0)
 
 # Create a TCP/IP socket
+
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.settimeout(30000)
 
 # Connect the socket to the port where the server is listening
+
+
 server_address = ('192.168.1.123', 20000)
 print(server_address)
 sock.connect(server_address)
 
 
 while True:
-    ## Leer QR
-    #if
-    indicadorplc=(0,1)
+indicadorplc=(0,1)
     while indicadorplc==(0,1):
         indicadorplc=arm.get_cgpio_digital(0)
         print('plc')
+    
+
+   ######Leer QR
+    
+    
     
     params = {'speed': 100, 'acc': 2000, 'angle_speed': 25, 'angle_acc': 500, 'events': {}, 'variables': variables, 'callback_in_thread': True, 'quit': False}
     arm.set_servo_angle(angle=[102.0, -22.8, -43.5, 0.2, 67.7, 12.8], speed=params['angle_speed'], mvacc=params['angle_acc'], wait=True, radius=-1.0)
@@ -98,7 +106,9 @@ while True:
             
 
     time.sleep(3)
-    ## Ver que color es
+   ## Ver que color es
+   
+   
     params = {'speed': 100, 'acc': 2000, 'angle_speed': 20, 'angle_acc': 500, 'events': {}, 'variables': variables, 'callback_in_thread': True, 'quit': False}
     arm.set_servo_angle(angle=[102.0, -22.8, -43.5, 0.2, 67.7, 12.8], speed=params['angle_speed'], mvacc=params['angle_acc'], wait=True, radius=-1.0)
     time.sleep(1.5)
@@ -148,7 +158,7 @@ while True:
 
 
 
-    
+  
     arm.set_position(z=250,wait=True)
 
 ## El dato en X
@@ -196,10 +206,6 @@ while True:
     
     
     time.sleep(2)
-#arm.set_cgpio_digital(0, 0, delay_sec=0)
-#arm.set_servo_angle(angle=[102.0, -22.8, -43.5, 0.2, 67.7, 12.8], speed=params['angle_speed'], mvacc=params['angle_acc'], wait=True, radius=-1.0)
-
-
 ## Ver qr de las bases
     arm.set_servo_angle(angle=[5.2, -28.3, -84.6, 1.6, 112.8, 92.7], speed=params['angle_speed'], mvacc=params['angle_acc'], wait=True, radius=-1.0)
     print('esperando datos de las bases QR...')
@@ -221,6 +227,8 @@ while True:
 
 
 ########### Ensamble Rojo con el reductor ya en la base
+
+
     if   str_match ==  [] and color == 'Motor rojo':
         print('Ya existe un motor azul ahi, moviendo a zona neutral')
         arm.set_servo_angle(angle=[52.4, -1.9, -19.6, -2.5, 22.6, -34.5], speed=params['angle_speed'], mvacc=params['angle_acc'], wait=True, radius=-1.0) ##zona neutra
@@ -284,7 +292,9 @@ while True:
             print('Ensamble terminado')
 
             
-        ############# Dejar motor rojo
+   ############# Dejar motor rojo
+   
+   
     elif str_match== [s for s in Qrbase if "Motor Rojo" in s]  and color=='Motor rojo':
         print('dejando motor rojo')
         arm.set_position(*[334.8, 0.1, 336.9, 180.0, 1.4, 0.1], speed=params['speed'], mvacc=params['acc'], radius=-1.0, wait=False)                         #Posicion seguro
@@ -298,6 +308,8 @@ while True:
 
 
 ########### Ensamble Blanco con el reductor ya en la base
+
+
     if str_match4 ==[] and color =='Motor blanco':
         if str_match2 == [s for s in Qrbase if "Motor Blanco" in s]:
             
@@ -324,6 +336,8 @@ while True:
             print('Ensamble finalizado')
         
 ######Dejar Motor blanco
+
+
     elif str_match2== [s for s in Qrbase if "Motor Blanco" in s] and color=='Motor blanco':
         print('dejar motor blanco')
         arm.set_position(*[334.8, 0.1, 336.9, 180.0, 1.4, 0.1], speed=params['speed'], mvacc=params['acc'], radius=-1.0, wait=False)                        #Posicion seguro
@@ -337,6 +351,8 @@ while True:
 
 
 ############### zona neutral azul
+
+
     if str_match3 ==[] and  str_match1 == []:
             arm.set_servo_angle(angle=[52.4, -1.9, -19.6, -2.5, 22.6, -34.5], speed=params['angle_speed'], mvacc=params['angle_acc'], wait=True, radius=-1.0) ##zona neutra
             arm.set_cgpio_digital(0, 0, delay_sec=0)                                                                                                           # trigger abrir gripper
@@ -355,6 +371,8 @@ while True:
         
 
 ############# Ensamble Azul con el reductor ya en la base
+
+
     if str_match3 ==[] and color =='Motor azul':
         if  str_match1 == [s for s in Qrbase if "Motor Azul" in s]:
             print('Haciendo el Ensamble azul')
@@ -390,7 +408,9 @@ while True:
                        
         
 
-########### Ensamble Blanco con motor ya en la base 
+########### Ensamble Blanco con motor ya en la base
+
+
     if str_match2==[] and color =='Reductor blanco':
         print('Haciendo el Ensamble blanco')
         print('Dejando reductor blanco')
@@ -417,7 +437,9 @@ while True:
         
 
 
-########### Ensamble Azul con motor ya en la base 
+########### Ensamble Azul con motor ya en la base
+
+
     if str_match1==[]  and  color =='Reductor azul':
         print('Haciendo el Ensamble azul')
         print('Dejando reductor azul')
@@ -445,7 +467,9 @@ while True:
         
 
 
-########### Ensamble Rojo con motor ya en la base 
+########### Ensamble Rojo con motor ya en la base
+
+
     if str_match== [] and  color=='Reductor rojo':
         os.system ("cls")
         print('Haciendo ensamble rojo')
@@ -459,6 +483,8 @@ while True:
         arm.set_position(*[334.8, 0.1, 336.9, 180.0, 1.4, 0.1], speed=params['speed'], mvacc=params['acc'], radius=-1.0, wait=False)                                                    #Posicion seguro
         print('Ensamble finalizado')
 ######Dejar Reductor Rojo
+
+
     elif str_match5==  [s for s in Qrbase if "Reductor Rojo" in s] and color=='Reductor rojo':
         print('dejar reductor rojo')
         arm.set_position(*[334.8, 0.1, 336.9, 180.0, 1.4, 0.1], speed=params['speed'], mvacc=params['acc'], radius=-1.0, wait=False)                    #Posicion seguro
@@ -480,8 +506,7 @@ while True:
 
     
 
-"""
 arm.disconnect()
 sock.close
-"""
+
 
