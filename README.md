@@ -30,8 +30,10 @@ arm.set_state(state=0)
 
 # Create a TCP/IP socket
 
+
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.settimeout(30000)
+
 
 # Connect the socket to the port where the server is listening
 
@@ -48,7 +50,8 @@ indicadorplc=(0,1)
         print('plc')
     
 
-   ######Leer QR
+
+ ######Leer QR
     
     
     
